@@ -32,7 +32,7 @@ A Polymer element for star ratings.
         direction: rtl;
         text-align: center;
       }
-      
+
       .star-rating-wrapper > span {
         display: inline-block;
         position: relative;
@@ -40,27 +40,32 @@ A Polymer element for star ratings.
         font-size: 1.5em;
         cursor: pointer;
         opacity: 0.4;
+        color: var(--star-rating-secondary-color, --primary-text-color);
       }
       
       .star-rating-wrapper > span.active,
       .star-rating-wrapper > span.active ~ span {
         opacity: 1;
+        color: var(--star-rating-color, --primary-text-color);
       }
       
       .star-rating-wrapper:hover > span.active,
       .star-rating-wrapper:hover > span.active ~ span {
         opacity: 0.4;
+        color: var(--star-rating-color, --primary-text-color);
       }
       
       .star-rating-wrapper > span:hover,
       .star-rating-wrapper > span:hover ~ span,
       .star-rating-wrapper > span.active:hover ~ span {
         opacity: 0.8 !important;
+        color: var(--star-rating-color, --primary-text-color);
       }
       
       .star-rating-wrapper > span:hover {
         opacity: 0.9 !important;
-      }
+        color: var(--star-rating-color, --primary-text-color);
+      }      
       
       .star-rating-wrapper > span.totals {
         opacity: 1 !important;
