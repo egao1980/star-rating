@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
 
 <!--
 A Polymer element for star ratings.
@@ -8,10 +8,10 @@ A Polymer element for star ratings.
     <star-rating></star-rating>
 ##### Custom number of stars:
     <star-rating stars="10"></star-rating>
-##### Default rate selected:
-    <star-rating stars="10" rate="3"></star-rating>
+##### Default value selected:
+    <star-rating stars="10" value="3"></star-rating>
 ##### Add your custom styles:
-    <star-rating stars="10" rate="3" class="custom-class"></star-rating>
+    <star-rating stars="10" value="3" class="custom-class"></star-rating>
     
 @demo
 @element star-rating
@@ -24,6 +24,7 @@ A Polymer element for star ratings.
     <style>
       :host {
         display: block;
+        padding-left: 14px;
       }
       
       .star-rating-wrapper {
@@ -73,10 +74,10 @@ A Polymer element for star ratings.
 
     <div class="star-rating-wrapper">
       <template is="dom-if" if="{{withTotal(showtotals)}}">
-        <span class="totals"><span>{{rate}}</span>/<span>{{stars}}</span></span>
+        <span class="totals"><span>{{value}}</span>/<span>{{stars}}</span></span>
       </template>
       <template id="star" is="dom-repeat" items="{{currentStars}}">
-        <span class$="{{isActive(index, rate)}}" on-tap="_setRate" data-index$="{{index}}">
+        <span class$="{{isActive(index, value)}}" on-tap="_setRate" data-index$="{{index}}">
         <template is="dom-if" if="{{isCustom()}}">
           <paper-icon-button icon="{{customcharicon}}"></paper-icon-button>
         </template>
@@ -124,16 +125,6 @@ A Polymer element for star ratings.
           value: null,
           notify: true
         },
-        /**
-         * rate: numbers of star selected
-         * @type {Number}
-         */
-        rate: {
-          type: Number,
-          value: 0,
-          reflectToAttribute: true,
-          notify: true
-        },
         showtotals: {
           type: Boolean,
           value: false,
@@ -148,6 +139,9 @@ A Polymer element for star ratings.
           value: []
         },
       },
+      behaviors: [
+        Polymer.IronFormElementBehavior
+      ],
     
        ready: function() {
         this.currentStars = [];
@@ -167,7 +161,8 @@ A Polymer element for star ratings.
       isFace: function(icon) {
         return icon == 'face' && this.customcharicon == null;
       },
-      isActive: function(index, rate) {
+      isActive: function(index, value) {
+        var rate = parseInt(value, 10);
         if ((index - this.stars) * -1 == rate) {
           return "active";
         }
@@ -176,11 +171,12 @@ A Polymer element for star ratings.
         return showtotals;
       },
       _setRate: function(e) {
-      deep = Polymer.dom(this.root);
+        var rate = parseInt(value, 10);
+        deep = Polymer.dom(this.root);
         if(!this.readonly){
           var index = e.model.index;
-          var indexOld = (this.rate * -1) + this.stars;
-          this.rate = (index - this.stars) * -1;
+          var indexOld = (rate * -1) + this.stars;
+          this.value = "" + ((index - this.stars) * -1);
           if (indexOld < this.stars) {
             deep.querySelector('[data-index="'+ indexOld +'"]').classList.remove("active");
           }
