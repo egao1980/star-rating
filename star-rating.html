@@ -19,57 +19,64 @@ A Polymer element for star ratings.
 @status alpha
 @url cmartinezv.github.io/webcomponents
 -->
-<style>
-  :host {
-    display: block;
-  }
-
-  .star-rating-wrapper {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    text-align: center;
-  }
-  .star-rating-wrapper > span {
-    display: inline-block;
-    position: relative;
-    width: 1em;
-    font-size: 1.5em;
-    cursor: pointer;
-    opacity: 0.4;
-  }
-  .star-rating-wrapper > span.active,
-  .star-rating-wrapper > span.active ~ span {
-     opacity: 1;
-  }
-  .star-rating-wrapper:hover > span.active,
-  .star-rating-wrapper:hover > span.active ~ span {
-     opacity: 0.4;
-  }
-  .star-rating-wrapper > span:hover,
-  .star-rating-wrapper > span:hover ~ span,
-  .star-rating-wrapper > span.active:hover ~ span {
-    opacity: 0.8 !important;
-  }
-  .star-rating-wrapper > span:hover {
-    opacity: 0.9 !important;
-  }
-  .star-rating-wrapper > span.totals {
-    opacity: 1 !important;
-    margin-left: 50px;
-  }
-  .star-rating-wrapper > span.totals:hover {
-    opacity: 1 !important;
-  }
-</style>
 <dom-module id="star-rating">
-<template>
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      
+      .star-rating-wrapper {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+        text-align: center;
+      }
+      
+      .star-rating-wrapper > span {
+        display: inline-block;
+        position: relative;
+        width: 1em;
+        font-size: 1.5em;
+        cursor: pointer;
+        opacity: 0.4;
+      }
+      
+      .star-rating-wrapper > span.active,
+      .star-rating-wrapper > span.active ~ span {
+        opacity: 1;
+      }
+      
+      .star-rating-wrapper:hover > span.active,
+      .star-rating-wrapper:hover > span.active ~ span {
+        opacity: 0.4;
+      }
+      
+      .star-rating-wrapper > span:hover,
+      .star-rating-wrapper > span:hover ~ span,
+      .star-rating-wrapper > span.active:hover ~ span {
+        opacity: 0.8 !important;
+      }
+      
+      .star-rating-wrapper > span:hover {
+        opacity: 0.9 !important;
+      }
+      
+      .star-rating-wrapper > span.totals {
+        opacity: 1 !important;
+        margin-left: 50px;
+      }
+      
+      .star-rating-wrapper > span.totals:hover {
+        opacity: 1 !important;
+      }
+    </style>
 
-  <div class="star-rating-wrapper">
-    <template is="dom-if" if="{{withTotal(showtotals)}}">
-      <span class="totals"><span>{{rate}}</span>/<span>{{stars}}</span></span>
-    </template>
-    <template id="star" is="dom-repeat" items="{{currentStars}}">
-      <span class$="{{isActive(index, rate)}}" on-tap="_setRate" data-index$="{{index}}">
+    <div class="star-rating-wrapper">
+      <template is="dom-if" if="{{withTotal(showtotals)}}">
+        <span class="totals"><span>{{rate}}</span>/<span>{{stars}}</span></span>
+      </template>
+      <template id="star" is="dom-repeat" items="{{currentStars}}">
+        <span class$="{{isActive(index, rate)}}" on-tap="_setRate" data-index$="{{index}}">
         <template is="dom-if" if="{{isCustom()}}">
           <paper-icon-button icon="{{customcharicon}}"></paper-icon-button>
         </template>
@@ -83,9 +90,9 @@ A Polymer element for star ratings.
         	<paper-icon-button icon="face"></paper-icon-button>
         </template>
       </span>
-    </template>
-  </div>
-</template>
+      </template>
+    </div>
+  </template>
 </dom-module>
 <script>
   ( function () {
